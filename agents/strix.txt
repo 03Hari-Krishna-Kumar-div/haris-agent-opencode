@@ -1,0 +1,76 @@
+========================================================
+STRIX - EXACT STEPS TO RUN (Windows setup)
+========================================================
+Strix = AI pentesting agent (already installed on this PC)
+Install location: D:\strix\bin\strix.exe (on PATH in new terminals)
+Config:          C:\Users\ADMIN\.strix\cli-config.json
+LLM:             NVIDIA free tier (nemotron-3-super-120b-a12b)
+Sandbox image:   ghcr.io/usestrix/strix-sandbox:1.3.0 (auto-pulled once)
+
+--------------------------------------------------------
+STEP 1 - PREREQUISITES (every time)
+--------------------------------------------------------
+1. Docker Desktop must be RUNNING:
+     docker ps
+   If it fails, start "Docker Desktop" from the Start Menu and wait ~30s.
+
+2. Open a NEW PowerShell/CMD window (so PATH + env vars load).
+   Verify strix is available:
+     strix --version        -> expect "strix 1.5.3"
+
+--------------------------------------------------------
+STEP 2 - FAST SCAN (recommended for daily use)
+--------------------------------------------------------
+strix -n --target C:\path\to\your-app --scan-mode quick --instruction-file D:\strix\default-instructions.md
+
+  -n                      = headless mode (no interactive TUI)
+  --scan-mode quick       = shallow scan
+  --instruction-file      = speed constraints (limits agents, PoC-only findings)
+
+Results:  strix_runs\<run-name>\  (findings.sarif + strix.log + run.json)
+The strix_runs folder is created inside the folder you run the command from.
+
+--------------------------------------------------------
+STEP 3 - DEEP SCAN (thorough, takes longer - 15-60 min)
+--------------------------------------------------------
+strix -n --target C:\path\to\your-app --scan-mode deep
+
+--------------------------------------------------------
+STEP 4 - SCAN A LIVE WEB APP / API (needs the app running)
+--------------------------------------------------------
+strix -n --target http://localhost:PORT
+(strix -n --target https://your-app.com --scan-mode quick)
+
+--------------------------------------------------------
+STEP 5 - VIEW / CHECK RESULTS
+--------------------------------------------------------
+Open the last run folder:
+  Get-ChildItem strix_runs | Sort-Object LastWriteTime -Descending | Select-Object -First 1
+
+Inspect findings:
+  Get-Content "strix_runs\smoke-target_9622\findings.sarif"
+
+Interactive viewer (if supported):
+  strix view <run-name>
+
+--------------------------------------------------------
+TROUBLESHOOTING
+--------------------------------------------------------
+- "LLM CONNECTION FAILED" -> check C:\Users\ADMIN\.strix\cli-config.json
+  has the correct nvapi-... key in LLM_API_KEY.
+- "command not found: strix" -> use full path: D:\strix\bin\strix.exe
+  OR re-add PATH:  [Environment]::SetEnvironmentVariable("Path", $env:Path + ";D:\strix\bin", "User")
+- Scan takes forever -> ensure --instruction-file is used + Docker is warm.
+- Change model effort in config: STRIX_REASONING_EFFORT (low = fast, high = smart).
+
+--------------------------------------------------------
+MODIFY API KEY
+--------------------------------------------------------
+File:  C:\Users\ADMIN\.strix\cli-config.json
+Change the value of "LLM_API_KEY" to your new nvapi-... key, save, re-run.
+
+--------------------------------------------------------
+SECURITY NOTE
+--------------------------------------------------------
+Only scan apps/sites you own or are authorized to test.
+The API key lives only in the config file - never commit it to git.

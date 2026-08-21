@@ -1,0 +1,26 @@
+{
+  "version": 2,
+  "plugins": {
+    "ponytail@ponytail": [
+      {
+        "scope": "project",
+        "projectPath": "C:\\Users\\ADMIN\\Downloads\\rental\\rental",
+        "installPath": "C:\\Users\\ADMIN\\.claude\\plugins\\cache\\ponytail\\ponytail\\4.8.4",
+        "version": "4.8.4",
+        "installedAt": "2026-07-02T13:11:24.330Z",
+        "lastUpdated": "2026-07-02T13:11:24.330Z",
+        "gitCommitSha": "40e50d9e03242aa5dd53ac771950f9127362b25f"
+      }
+    ],
+    "frontend-design@claude-plugins-official": [
+      {
+        "scope": "project",
+        "projectPath": "C:\\Users\\ADMIN\\Downloads\\rental\\rental",
+        "installPath": "C:\\Users\\ADMIN\\.claude\\plugins\\cache\\claude-plugins-official\\frontend-design\\unknown",
+        "version": "unknown",
+        "installedAt": "2026-07-02T13:13:42.051Z",
+        "lastUpdated": "2026-07-02T14:06:28.302Z"
+      }
+    ]
+  }
+}

@@ -1,0 +1,24 @@
+{
+  "$schema": "https://opencode.ai/config.json",
+  "instructions": ["Web-Analyzer.md", "Webdeveloper.md", "seo.md"],
+  "agent": {
+    "web-analyzer": {
+      "description": "Executes the complete Website-Intelligence consulting workflow (embedded rulebook).",
+      "mode": "primary",
+      "permission": {
+        "edit": "deny",
+        "bash": "ask"
+      }
+    },
+    "webdev-v1": {
+      "description": "Full-stack web developer agent that builds production-ready websites.",
+      "mode": "primary"
+    },
+    "seo": {
+      "description": "Production-grade SEO specialist that audits, analyzes, and optimizes websites for search engines, AI search, accessibility, and performance.",
+      "mode": "primary"
+    },
+    "general": { "disable": true },
+    "explore": { "disable": true }
+  }
+}

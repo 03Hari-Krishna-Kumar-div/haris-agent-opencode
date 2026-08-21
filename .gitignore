@@ -1,0 +1,18 @@
+# Dependencies
+node_modules/
+
+# Temp files
+*.tmp
+*.temp
+~$*
+
+# Lock files (IDE)
+*.lock
+
+# Strix security scan outputs
+strix_runs/
+
+# Cache
+__pycache__/
+*.pyc
+*.pyo
